@@ -1,0 +1,82 @@
+<div class="profile-container">
+  <div class="profile-header">
+    <h1>Member Profile</h1>
+    <p class="subtitle">Crossref Member Information</p>
+  </div>
+
+  @if (crossrefService.loading()) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading member information...</p>
+    </div>
+  } @else if (crossrefService.error()) {
+    <div class="error-state">
+      <p>{{ crossrefService.error() }}</p>
+      <button (click)="loadMember()" class="retry-button">Retry</button>
+    </div>
+  } @else if (member()) {
+    @let m = member();
+
+    <div class="profile-content">
+      <div class="info-card">
+        <h2>Member Details</h2>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="label">Member ID:</span>
+            <span class="value">{{ m?.id }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Primary Name:</span>
+            <span class="value">{{ m?.['primary-name'] }}</span>
+          </div>
+          @if (m?.location) {
+            <div class="info-item">
+              <span class="label">Location:</span>
+              <span class="value">{{ m?.location }}</span>
+            </div>
+          }
+          <div class="info-item">
+            <span class="label">Status:</span>
+            <span class="value badge">Active</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-card">
+        <h3>Statistics</h3>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-value">{{ m?.counts?.['total-dois']?.toLocaleString() || 0 }}</span>
+            <span class="stat-label">Total DOIs</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">{{ m?.counts?.['current-dois']?.toLocaleString() || 0 }}</span>
+            <span class="stat-label">Current DOIs</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">{{ m?.prefixes?.length || 0 }}</span>
+            <span class="stat-label">Prefixes</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions-card">
+        <h3>Quick Actions</h3>
+        <a [routerLink]="['/dashboard/works']" class="action-button">
+          View Works
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  }
+</div>

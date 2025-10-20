@@ -1,16 +1,61 @@
-# Members
+# Members MFE
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.6.
+Micro Frontend de Members que integra la API de Crossref para mostrar información de miembros y sus publicaciones.
 
-## Development server
+## 🚀 Quick Start
 
-To start a local development server, run:
-
+### 1. Construir la librería shared (primera vez o después de cambios)
 ```bash
+cd ../libs
+pnpm build
+```
+
+### 2. Instalar dependencias
+```bash
+cd ../members
+pnpm install
+```
+
+### 3. Iniciar el servidor de desarrollo
+```bash
+pnpm start
+# o
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Una vez que el servidor esté corriendo, abre `http://localhost:4200/` en tu navegador. La aplicación se recargará automáticamente cuando modifiques los archivos fuente.
+
+## 📋 Rutas Disponibles
+
+- **Profile:** `http://localhost:4200/members/profile` - Información del member
+- **Works:** `http://localhost:4200/members/works` - Lista de publicaciones del member
+
+### Con query params:
+- `http://localhost:4200/members/profile?memberId=98`
+- `http://localhost:4200/members/works?memberId=311`
+
+## 📚 Documentación
+
+- **[README_ROUTING.md](./README_ROUTING.md)** - Guía completa de routing y desarrollo local
+- **[CROSSREF_INTEGRATION.md](./CROSSREF_INTEGRATION.md)** - Documentación de la integración con Crossref API
+
+## 🏗️ Estructura del Proyecto
+
+```
+src/app/
+├── app.ts                          # Componente raíz
+├── app.routes.ts                   # Rutas principales
+├── app.config.ts                   # Configuración de la app
+├── app.module.ts                   # Módulo principal (alternativo)
+└── members/
+    ├── members.module.ts           # Módulo de members
+    ├── members-routing.module.ts   # Rutas del módulo
+    ├── services/
+    │   └── crossref.service.ts     # Servicio para API de Crossref
+    └── pages/
+        ├── profile/                # Página de perfil del member
+        └── works/                  # Página de trabajos del member
+```
 
 ## Code scaffolding
 
